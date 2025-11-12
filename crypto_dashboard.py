@@ -17,6 +17,13 @@ coin = st.sidebar.selectbox("Select Cryptocurrency", coins_list)
 currency = st.sidebar.selectbox("Select Currency", ['eur', 'usd'])
 days = st.sidebar.slider("Select Historical Data (days)", 1, 90, 30)
 
+# --- Dark/Light Mode ---
+theme = st.sidebar.radio("Select Theme for the Chart", ["Light", "Dark"])
+if theme == "Dark":
+    plt.style.use('dark_background')
+else:
+    plt.style.use('default')
+
 # --- FETCH DATA FUNCTIONS ---
 
 
@@ -48,7 +55,8 @@ st.dataframe(data.tail(10))
 
 # --- PRICE CHART ---
 fig, ax = plt.subplots(figsize=(10, 4))
-ax.plot(data['timestamp'], data['price'], label=f"{coin.capitalize()} Price")
+ax.plot(data['timestamp'], data['price'],
+        label=f"{coin.capitalize()} Price", color='cyan' if theme == "Dark" else 'blue')
 ax.set_xlabel("Date")
 ax.set_ylabel(f"Price ({currency.upper()})")
 ax.legend()
@@ -60,7 +68,8 @@ ma_window = st.slider("Select Moving Average Window (days)", 3, 20, 7)
 data['MA'] = data['price'].rolling(ma_window).mean()
 
 fig2, ax2 = plt.subplots(figsize=(10, 4))
-ax2.plot(data['timestamp'], data['price'], label="Price", alpha=0.7)
+ax2.plot(data['timestamp'], data['price'], label="Price",
+         alpha=0.7, color='cyan' if theme == "Dark" else 'blue')
 ax2.plot(data['timestamp'], data['MA'],
          label=f"{ma_window}-Day MA", color='orange')
 ax2.set_xlabel("Date")
