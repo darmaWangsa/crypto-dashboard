@@ -12,7 +12,7 @@ st.markdown(
 
 # --- SIDEBAR CONTROLS ---
 st.sidebar.header("Settings")
-coins_list = ['bitcoin', 'ethereum', 'ripple', 'litecoin', 'dogecoin']
+coins_list = ['bitcoin', 'ethereum', 'ripple']
 coin = st.sidebar.selectbox("Select Cryptocurrency", coins_list)
 currency = st.sidebar.selectbox("Select Currency", ['eur', 'usd'])
 days = st.sidebar.slider("Select Historical Data (days)", 1, 90, 30)
